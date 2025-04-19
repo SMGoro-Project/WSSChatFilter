@@ -20,7 +20,7 @@ public class ChatFilterCommand extends BaseCommand {
     public void base(CommandSender sender) {
         sender.sendMessage(ChatColor.GRAY + "WSS Chat Filter ver 1.0.0 by RENaa_FD");
         sender.sendMessage(ChatColor.GRAY + "- Filtering Chat with Filter4J + ChatGLM");
-        sender.sendMessage(ChatColor.GRAY + "- See source code on: https://github.com/lRENyaaa/WSSChatFilter");
+        sender.sendMessage(ChatColor.GRAY + "- See source code on: https://github.com/SMGoro-Project/WSSChatFilter");
         sender.sendMessage("");
         sender.sendMessage(ChatColor.GRAY + "Source code under the MIT LICENSE - Copyright (c) 2025 lRENyaaa");
     }
