@@ -29,10 +29,13 @@ public class ChatFilter implements Listener {
 
         FilterService filter4jService = WSSChatFilter.getInstance().getFilter4jService();
         FilterService llmFilterService = WSSChatFilter.getInstance().getLlmFilterService();
+        if (llmFilterService == null) return;
 
-        boolean unsafeResult = filter4jService.filter(message).isUnsafeResult(100.0);
-        if (!unsafeResult) {
-            return;
+        if (Config.IMP.FILTER4J) {
+            boolean unsafeResult = filter4jService.filter(message).isUnsafeResult(100.0);
+            if (!unsafeResult) {
+                return;
+            }
         }
 
         try {

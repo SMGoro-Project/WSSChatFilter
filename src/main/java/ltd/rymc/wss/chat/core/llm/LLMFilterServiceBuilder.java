@@ -2,6 +2,8 @@ package ltd.rymc.wss.chat.core.llm;
 
 import com.zhipu.oapi.ClientV4;
 
+import java.util.List;
+
 public class LLMFilterServiceBuilder {
 
     private final String apiKey;
@@ -31,6 +33,15 @@ public class LLMFilterServiceBuilder {
         return this;
     }
 
+    public LLMFilterServiceBuilder setPrompt(List<String> prompt) {
+        StringBuilder builder = new StringBuilder();
+        for (String string : prompt) {
+            builder.append(string).append("\n");
+        }
+        this.prompt = builder.toString();
+        return this;
+    }
+
     public LLMFilterServiceBuilder setModel(String model) {
         this.model = model;
         return this;
@@ -38,6 +49,11 @@ public class LLMFilterServiceBuilder {
 
     public LLMFilterServiceBuilder setTemperature(float temperature) {
         this.temperature = temperature;
+        return this;
+    }
+
+    public LLMFilterServiceBuilder setTemperature(double temperature) {
+        this.temperature = (float) temperature;
         return this;
     }
 
