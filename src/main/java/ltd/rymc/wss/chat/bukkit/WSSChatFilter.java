@@ -1,6 +1,8 @@
 package ltd.rymc.wss.chat.bukkit;
 
+import co.aikar.commands.PaperCommandManager;
 import lombok.Getter;
+import ltd.rymc.wss.chat.bukkit.commands.ChatFilterCommand;
 import ltd.rymc.wss.chat.bukkit.config.Config;
 import ltd.rymc.wss.chat.bukkit.config.Messages;
 import ltd.rymc.wss.chat.bukkit.listener.ChatFilter;
@@ -28,6 +30,7 @@ public final class WSSChatFilter extends JavaPlugin implements FileLoader {
         instance = this;
         reload();
 
+        new PaperCommandManager(this).registerCommand(new ChatFilterCommand());
         PluginManager manager = Bukkit.getPluginManager();
         manager.registerEvents(new ChatRateLimiter(), this);
         manager.registerEvents(new ChatFilter(), this);

@@ -1,5 +1,6 @@
 package ltd.rymc.wss.chat.bukkit.commands;
 
+import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Default;
@@ -13,7 +14,7 @@ import org.bukkit.command.CommandSender;
 @CommandAlias("filter")
 @Description("Chat filter command")
 @SuppressWarnings("unused")
-public class ChatFilterCommand {
+public class ChatFilterCommand extends BaseCommand {
 
     @Default
     public void base(CommandSender sender) {
