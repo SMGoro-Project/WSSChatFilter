@@ -7,7 +7,6 @@ import ltd.rymc.wss.chat.utils.ResourceUtil;
 
 public class Filter4JService implements FilterService {
 
-
     private final String[] script;
     private final Tokenizer tokenizer;
 
@@ -32,6 +31,5 @@ public class Filter4JService implements FilterService {
     public FilterResult filter(String playerMessage) {
         return MinRt.doAi(tokenizer.tokenize(playerMessage), script) == 1 ? FilterResult.UNSAFE : FilterResult.SAFE;
     }
-
 
 }

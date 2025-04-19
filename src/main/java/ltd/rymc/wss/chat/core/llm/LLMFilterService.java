@@ -11,9 +11,9 @@ import com.zhipu.oapi.service.v4.model.ChatMessageRole;
 import com.zhipu.oapi.service.v4.model.ModelApiResponse;
 import lombok.RequiredArgsConstructor;
 import ltd.rymc.wss.chat.core.FilterResult;
+import ltd.rymc.wss.chat.core.FilterService;
 import ltd.rymc.wss.chat.core.exception.ModelResponseFailedException;
 import ltd.rymc.wss.chat.core.serializer.FilterResultDeserializer;
-import ltd.rymc.wss.chat.core.FilterService;
 import ltd.rymc.wss.chat.core.serializer.FilterResultSerializer;
 import ltd.rymc.wss.chat.utils.FunctionalUtil;
 import ltd.rymc.wss.chat.utils.StringUtil;
@@ -35,40 +35,40 @@ public class LLMFilterService implements FilterService {
     private final float temperature;
     private final int maxAttempts;
 
+    public static LLMFilterServiceBuilder builder(String apiKey) {
+        return new LLMFilterServiceBuilder(apiKey);
+    }
+
     public FilterResult filter(String playerMessage) {
 
-       String prompt = String.format(this.prompt, playerMessage);
+        String prompt = String.format(this.prompt, playerMessage);
 
-       ChatCompletionRequest req = ChatCompletionRequest.builder()
-               .model(model)
-               .stream(Boolean.FALSE)
-               .invokeMethod(Constants.invokeMethod)
-               .messages(Collections.singletonList(new ChatMessage(ChatMessageRole.USER.value(), prompt)))
-               .build();
-       req.setTemperature(temperature);
+        ChatCompletionRequest req = ChatCompletionRequest.builder()
+                .model(model)
+                .stream(Boolean.FALSE)
+                .invokeMethod(Constants.invokeMethod)
+                .messages(Collections.singletonList(new ChatMessage(ChatMessageRole.USER.value(), prompt)))
+                .build();
+        req.setTemperature(temperature);
 
-       ModelApiResponse response = FunctionalUtil.retry(() -> invoke(req), maxAttempts);
-       if (response == null) throw new ModelResponseFailedException(ModelResponseFailedException.Type.API_FAILED);
+        ModelApiResponse response = FunctionalUtil.retry(() -> invoke(req), maxAttempts);
+        if (response == null) throw new ModelResponseFailedException(ModelResponseFailedException.Type.API_FAILED);
 
-       String content = StringUtil.extractCodeBlock((String) response.getData().getChoices().get(0).getMessage().getContent());
-       try {
-           return gson.fromJson(content, FilterResult.class);
-       } catch (JsonParseException exception) {
-           throw new ModelResponseFailedException(ModelResponseFailedException.Type.JSON_PARSE);
-       }
+        String content = StringUtil.extractCodeBlock((String) response.getData().getChoices().get(0).getMessage().getContent());
+        try {
+            return gson.fromJson(content, FilterResult.class);
+        } catch (JsonParseException exception) {
+            throw new ModelResponseFailedException(ModelResponseFailedException.Type.JSON_PARSE);
+        }
 
     }
 
-    private ModelApiResponse invoke(ChatCompletionRequest req){
+    private ModelApiResponse invoke(ChatCompletionRequest req) {
         try {
             return client.invokeModelApi(req);
         } catch (HttpException exception) {
             return null;
         }
-    }
-
-    public static LLMFilterServiceBuilder builder(String apiKey) {
-        return new LLMFilterServiceBuilder(apiKey);
     }
 
 }

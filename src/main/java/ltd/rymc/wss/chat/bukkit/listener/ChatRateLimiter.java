@@ -3,7 +3,9 @@ package ltd.rymc.wss.chat.bukkit.listener;
 import ltd.rymc.wss.chat.bukkit.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.*;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.Map;
@@ -33,4 +35,5 @@ public class ChatRateLimiter implements Listener {
             lastChatTimestamps.put(uuid, now);
         }
     }
+
 }

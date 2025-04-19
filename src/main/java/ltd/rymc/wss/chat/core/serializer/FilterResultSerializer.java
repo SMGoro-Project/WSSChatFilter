@@ -18,4 +18,5 @@ public class FilterResultSerializer implements JsonSerializer<FilterResult> {
         src.getReason().ifPresent(reason -> obj.addProperty("reason", reason));
         return obj;
     }
+
 }

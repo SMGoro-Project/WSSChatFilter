@@ -4,16 +4,15 @@ import lombok.RequiredArgsConstructor;
 import ltd.rymc.wss.chat.bukkit.WSSChatFilter;
 import ltd.rymc.wss.chat.bukkit.config.Config;
 import ltd.rymc.wss.chat.bukkit.config.Messages;
-import ltd.rymc.wss.chat.core.FilterService;
 import ltd.rymc.wss.chat.core.FilterResult;
+import ltd.rymc.wss.chat.core.FilterService;
 import ltd.rymc.wss.chat.core.exception.ModelResponseFailedException;
 import ltd.rymc.wss.chat.utils.ChatColorUtils;
 import ltd.rymc.wss.chat.utils.StringUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import java.util.logging.Logger;
@@ -32,7 +31,7 @@ public class ChatFilter implements Listener {
         FilterService llmFilterService = WSSChatFilter.getInstance().getLlmFilterService();
 
         boolean unsafeResult = filter4jService.filter(message).isUnsafeResult(100.0);
-        if (!unsafeResult){
+        if (!unsafeResult) {
             return;
         }
 
@@ -49,7 +48,7 @@ public class ChatFilter implements Listener {
             }
 
         } catch (ModelResponseFailedException exception) {
-            if (Config.IMP.LOG_JSON_PARSE_ERROR){
+            if (Config.IMP.LOG_JSON_PARSE_ERROR) {
                 Logger logger = WSSChatFilter.getInstance().getLogger();
                 Messages messages = Messages.IMP;
                 switch (exception.getType()) {
@@ -64,6 +63,5 @@ public class ChatFilter implements Listener {
         }
 
     }
-
 
 }

@@ -28,4 +28,5 @@ public class FilterResultDeserializer implements JsonDeserializer<FilterResult> 
 
         return new FilterResult(label, confidence, reason);
     }
+
 }

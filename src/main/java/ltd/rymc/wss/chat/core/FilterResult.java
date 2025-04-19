@@ -18,14 +18,8 @@ public class FilterResult {
 
     private final String reason;
 
-    public Optional<String> getReason(){
+    public Optional<String> getReason() {
         return reason == null || reason.trim().isEmpty() ? Optional.empty() : Optional.of(reason);
-    }
-
-    public enum Result {
-        UNSAFE,
-        SAFE,
-        UNKNOWN
     }
 
     public boolean isUnsafeResult(double lowestConfidence) {
@@ -38,6 +32,12 @@ public class FilterResult {
         }
 
         return confidence < lowestConfidence;
+    }
+
+    public enum Result {
+        UNSAFE,
+        SAFE,
+        UNKNOWN
     }
 
 }

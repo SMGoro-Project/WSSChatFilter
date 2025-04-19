@@ -12,6 +12,9 @@ public class Config extends YamlConfig {
 
     @Create
     public LLM LLM;
+    @Create
+    public RATE_LIMITER RATE_LIMITER;
+
     public static class LLM {
         public String API_KEY = "";
         public int API_MAX_ATTEMPTS = 3;
@@ -33,8 +36,6 @@ public class Config extends YamlConfig {
                                "Player message: \"%s\"";
     }
 
-    @Create
-    public RATE_LIMITER RATE_LIMITER;
     public static class RATE_LIMITER {
         public long COOMDOWN_MILIS = 3000L;
     }

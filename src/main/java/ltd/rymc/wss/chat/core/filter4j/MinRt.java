@@ -1,7 +1,9 @@
 package ltd.rymc.wss.chat.core.filter4j;
 
 public final class MinRt {
-    private MinRt() {}
+    
+    private MinRt() {
+    }
 
     public static int doAi(double[] input, String[] script) {
         double[] current = new double[input.length];

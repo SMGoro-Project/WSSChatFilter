@@ -18,11 +18,10 @@ import java.io.File;
 @Getter
 public final class WSSChatFilter extends JavaPlugin implements FileLoader {
 
-    private FilterService filter4jService;
-    private FilterService llmFilterService;
-
     @Getter
     private static WSSChatFilter instance;
+    private FilterService filter4jService;
+    private FilterService llmFilterService;
 
     @Override
     public void onEnable() {
@@ -53,7 +52,5 @@ public final class WSSChatFilter extends JavaPlugin implements FileLoader {
                 .setMaxAttempts(llm.API_MAX_ATTEMPTS).build();
 
     }
-
-
 
 }

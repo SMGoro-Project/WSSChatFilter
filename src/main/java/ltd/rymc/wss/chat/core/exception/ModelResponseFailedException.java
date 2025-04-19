@@ -11,6 +11,7 @@ public class ModelResponseFailedException extends RuntimeException {
 
     public enum Type {
         JSON_PARSE,
-        API_FAILED;
+        API_FAILED
     }
+
 }

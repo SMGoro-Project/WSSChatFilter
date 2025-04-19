@@ -13,13 +13,15 @@ public class ResourceUtil {
 
     public static <T> T readResource(FileLoader loader, String path, ReaderFunction<T> function) throws IOException {
         try (InputStream in = loader.getResource(path);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+             BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))
+        ) {
             return function.apply(reader);
         }
     }
 
     @FunctionalInterface
-    public interface ReaderFunction<T>  {
+    public interface ReaderFunction<T> {
         T apply(BufferedReader reader) throws IOException;
     }
+
 }

@@ -1,6 +1,7 @@
 package ltd.rymc.wss.chat.utils;
 
 public class StringUtil {
+
     public static boolean isSingleCharString(String s) {
         if (s == null || s.isEmpty()) return false;
         char firstChar = s.charAt(0);
@@ -29,4 +30,5 @@ public class StringUtil {
         }
         return content;
     }
+
 }
