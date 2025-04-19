@@ -1,7 +1,7 @@
 package ltd.rymc.wss.chat.core.filter4j;
 
 public final class MinRt {
-    
+
     private MinRt() {
     }
 

@@ -1,5 +1,6 @@
 name: WSSChatFilter
 version: '${version}'
 main: ltd.rymc.wss.chat.bukkit.WSSChatFilter
+api-version: '1.13'
 authors: [lRENyaaa (RENaa_FD)]
 website: 'https://github.com/lRENyaaa/WSSChatFilter'
