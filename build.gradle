@@ -6,7 +6,7 @@ plugins {
 build.dependsOn shadowJar
 
 group = 'ltd.rymc.wss'
-version = '1.0.0'
+version = '1.0.1'
 
 repositories {
     mavenCentral()
