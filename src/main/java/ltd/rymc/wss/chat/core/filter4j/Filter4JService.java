@@ -1,11 +1,12 @@
 package ltd.rymc.wss.chat.core.filter4j;
 
-import ltd.rymc.wss.chat.core.FileLoader;
+import ltd.rymc.function.throwable.ThrowableFunction;
+import ltd.rymc.io.IOProcessor;
 import ltd.rymc.wss.chat.core.FilterResult;
 import ltd.rymc.wss.chat.core.FilterService;
 import ltd.rymc.wss.chat.core.filter4j.layer.Layer;
-import ltd.rymc.wss.chat.utils.ResourceUtil;
-
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 public class Filter4JService implements FilterService {
@@ -13,14 +14,14 @@ public class Filter4JService implements FilterService {
     private final List<Layer> compiledScript;
     private final Tokenizer tokenizer;
 
-    public Filter4JService(FileLoader loader) {
+    public Filter4JService(ThrowableFunction<String, InputStream, IOException> loader) {
         try {
-            compiledScript = ResourceUtil.readResource(loader, "model/judge.model", reader -> {
+            compiledScript = IOProcessor.bufferedRead("model/judge.model", loader, reader -> {
                 String[] script = reader.lines().toArray(String[]::new);
                 return ScriptCompiler.compile(script);
             });
 
-            tokenizer = ResourceUtil.readResource(loader, "model/tokenize.model", reader -> {
+            tokenizer = IOProcessor.bufferedRead("model/tokenize.model", loader, reader -> {
                 int size = Integer.parseInt(reader.readLine());
                 String[] vocab = new String[size];
                 for (int i = 0; i < size; i++) {

@@ -7,7 +7,7 @@ import ltd.rymc.wss.chat.bukkit.config.Config;
 import ltd.rymc.wss.chat.bukkit.config.Messages;
 import ltd.rymc.wss.chat.bukkit.listener.ChatFilter;
 import ltd.rymc.wss.chat.bukkit.listener.ChatRateLimiter;
-import ltd.rymc.wss.chat.core.FileLoader;
+import ltd.rymc.wss.chat.core.llm.LLMConstant;
 import ltd.rymc.wss.chat.core.FilterService;
 import ltd.rymc.wss.chat.core.filter4j.Filter4JService;
 import ltd.rymc.wss.chat.core.llm.LLMFilterService;
@@ -23,7 +23,7 @@ import java.nio.file.Files;
 import java.util.logging.Level;
 
 @Getter
-public final class WSSChatFilter extends JavaPlugin implements FileLoader {
+public final class WSSChatFilter extends JavaPlugin {
 
     @Getter
     private static WSSChatFilter instance;
@@ -46,10 +46,10 @@ public final class WSSChatFilter extends JavaPlugin implements FileLoader {
         Config.IMP.reload(new File(getDataFolder(), "config.yml"));
         Messages.IMP.reload(new File(getDataFolder(), "messages.yml"));
         prompt = readPrompt();
-        filter4jService = new Filter4JService(this);
+        filter4jService = new Filter4JService(this::getResource);
 
         Config.LLM llm = Config.IMP.LLM;
-        if (llm.API_KEY.isEmpty()) {
+        if (llm.API_KEY == null || llm.API_KEY.isEmpty()) {
             llmFilterService = null;
             getLogger().severe(Messages.IMP.NO_API_KEY);
             return;
@@ -65,19 +65,7 @@ public final class WSSChatFilter extends JavaPlugin implements FileLoader {
 
     private String readPrompt() {
         File file = new File(getDataFolder(), "prompt.txt");
-        String defaultValue = "Please act as a content security auditor and determine if the messages sent by the following players contain any of the following:\n" +
-                              "1. abusive (e.g. insulting words, personal attacks, etc.)\n" +
-                              "2. Pornographic (e.g. sexually suggestive, explicit terms, vulgar content, etc.)\n" +
-                              "3. illegal (e.g. threats of violence, politically sensitive, drugs, scams, etc.)\n" +
-                              "4. Malicious attempts to evade detection using techniques such as character substitution, homophones, obfuscation, puns, or indirect references, especially in Chinese\n" +
-                              "and **strictly** returns a JSON object in the following format:\n" +
-                              "{\n" +
-                              "  \"label\": \"SAFE|UNSAFE|UNKNOWN\",\n" +
-                              "  \"confidence\": Number[0-100]\n" +
-                              "  \"reason\": string[No required if SAFE]\n" +
-                              "}\n" +
-                              "**NOTE**: Server players mainly use Chinese and English\n" +
-                              "Player message: \"%s\"";
+        String defaultValue = LLMConstant.PROMPT;
 
         try {
             if (!file.exists()) {

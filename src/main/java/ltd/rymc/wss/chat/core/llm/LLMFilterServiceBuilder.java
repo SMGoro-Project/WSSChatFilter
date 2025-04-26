@@ -7,22 +7,10 @@ import java.util.List;
 public class LLMFilterServiceBuilder {
 
     private final String apiKey;
-    private String prompt = "Please act as a content security auditor and determine if the messages sent by the following players contain any of the following:\n" +
-                            "1. abusive (e.g. insulting words, personal attacks, etc.)\n" +
-                            "2. Pornographic (e.g. sexually suggestive, explicit terms, vulgar content, etc.)\n" +
-                            "3. illegal (e.g. threats of violence, politically sensitive, drugs, scams, etc.)\n" +
-                            "4. Malicious attempts to evade detection using techniques such as character substitution, homophones, obfuscation, puns, or indirect references, especially in Chinese\n" +
-                            "and **strictly** returns a JSON object in the following format:\n" +
-                            "{\n" +
-                            "  \"label\": \"SAFE|UNSAFE|UNKNOWN\",\n" +
-                            "  \"confidence\": Number[0-100]\n" +
-                            "  \"reason\": string[No required if SAFE]\n" +
-                            "}\n" +
-                            "**NOTE**: Server players mainly use Chinese and English\n" +
-                            "Player message: \"%s\"";
-    private String model = "GLM-4-FlashX";
-    private float temperature = 0.0f;
-    private int maxAttempts = 3;
+    private String prompt = LLMConstant.PROMPT;
+    private String model = LLMConstant.MODEL;
+    private float temperature = LLMConstant.TEMPERATURE;
+    private int maxAttempts = LLMConstant.MAX_ATTEMPTS;
 
     public LLMFilterServiceBuilder(String apiKey) {
         this.apiKey = apiKey;

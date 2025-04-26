@@ -1,5 +1,6 @@
 package ltd.rymc.wss.chat.bukkit.config;
 
+import ltd.rymc.wss.chat.core.llm.LLMConstant;
 import net.elytrium.java.commons.config.YamlConfig;
 
 public class Config extends YamlConfig {
@@ -18,9 +19,9 @@ public class Config extends YamlConfig {
 
     public static class LLM {
         public String API_KEY = "";
-        public int API_MAX_ATTEMPTS = 3;
-        public String MODEL = "GLM-4-FlashX";
-        public double MODEL_TEMPERATURE = 0.0d;
+        public int API_MAX_ATTEMPTS = LLMConstant.MAX_ATTEMPTS;
+        public String MODEL = LLMConstant.MODEL;
+        public double MODEL_TEMPERATURE = LLMConstant.TEMPERATURE;
     }
 
     public static class RATE_LIMITER {
